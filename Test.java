@@ -6,6 +6,15 @@ public class Test {
     private double goalResult;
     private double achievedResult;
 
+    //Constructors
+    public Test(String testName){
+        this.testName = testName;
+        weighting = 0.0;
+        goalResult = 0.0;
+        //so I can identify if the student got 0 or hasn't input results yet
+        achievedResult = -1.0;
+    }
+
     //getters
     public double getWeighting() {
         return weighting; }
