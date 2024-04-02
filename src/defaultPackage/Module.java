@@ -23,15 +23,11 @@ public class Module {
     }
     public int getProgression() {return progression;}
 
-
-    /**
-     *creates a new test and adds it to the list of tests in a module
-     *if a test with the given name already exists in the module it adds a number at the end
-     *@param test the name of the test
-     **/
     public void addTest(Test test) {
-
+        this.tests.add(test) ;
     }
+
+
 
     /**
      *Checks whether a module is on track to meet its target grade
@@ -44,22 +40,13 @@ public class Module {
      * @return will be an in representing the state of progression
      **/
     public int updateProgression(Module module) {
-        double scoresOfTestsCompleted = 0;
-        int allTestsCompleted = 0;
-
-        //gets the total scores and weightings of the tests completed
-        for (int number = 0; number < module.tests.size(); number++) {
-            if (module.tests.get(number).getAchievedResult() != -1) {
-                scoresOfTestsCompleted += module.tests.get(number).getAchievedResult();
-                allTestsCompleted++;
-            }
-        }
-
-        //calculates the grade that has been achieved from the tests completed
-        double currentGrade = (scoresOfTestsCompleted / (100 * allTestsCompleted)) * 100 ;
-
+        double currentGrade = module.gradeCalculator() ;
+        boolean allTestsCompleted = true ;
+        for (int i = 0; i < tests.size(); i++)
+            if (tests.get(i).getAchievedResult() == -1)
+                allTestsCompleted = false ;
         //compares the grade that has been achieved so far with the users target grade
-        if (allTestsCompleted == module.tests.size())
+        if (allTestsCompleted)
             if (currentGrade < module.goalGrade)
                 return 4 ;
             else return 2 ;
@@ -69,6 +56,23 @@ public class Module {
 
     }
 
+    public double gradeCalculator(){
+
+        double scoresOfTestsCompleted = 0;
+        int allTestsCompleted = 0;
+
+        //gets the total scores and weightings of the tests completed
+        for (int number = 0; number < tests.size(); number++) {
+            if (tests.get(number).getAchievedResult() != -1) {
+                scoresOfTestsCompleted += tests.get(number).getAchievedResult();
+                allTestsCompleted++;
+            }
+        }
+
+        //calculates the grade that has been achieved from the tests completed
+        return  (scoresOfTestsCompleted / (100 * allTestsCompleted)) * 100 ;
+
+    }
 
 
 }

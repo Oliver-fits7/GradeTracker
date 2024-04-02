@@ -12,10 +12,9 @@ public class testResources {
 
         //add to int[]
         String[] tempArray = inputs.split(",") ;
-        int noTests = inputs.length() / 3 + 1;
 
         ArrayList<Double> testInputs = new ArrayList<>() ;
-        for(int number = 0; number < noTests; number++){
+        for(int number = 0; number < tempArray.length; number++){
             testInputs.add(Double.parseDouble(tempArray[number]))  ;
         }
 
